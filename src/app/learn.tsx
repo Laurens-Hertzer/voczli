@@ -2,8 +2,8 @@ import { Pressable, FlatList, Text, View, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import Voci from "./models/voci";
 import VociItem from "./components/VociItem";
-import { vociList } from './index';
 import { useState } from "react";
+import {useVoci} from "./context/vociContext";
 
 
 export default function LearnScreen() {
@@ -14,11 +14,11 @@ export default function LearnScreen() {
 
     const [showTranslation, setShowTranslation] = useState(false);
 
-    const vocabulary: Voci[] = vociList;
+     const { vociList } = useVoci();
 
-    const currentVoci = vocabulary[currentIndex]
+    const currentVoci = vociList[currentIndex]
 
-    const letzterIndex = vocabulary.length;
+    const letzterIndex = vociList.length;
 
     function onPressLearnMore() {
         if (currentIndex < letzterIndex - 1) {

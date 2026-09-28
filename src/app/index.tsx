@@ -4,33 +4,13 @@ import { Ionicons } from "@expo/vector-icons";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Voci from "./models/voci";
 import VociItem from "./components/VociItem";
-
-export const vociList: Voci[] = [
-  { term: "Haus", translation: "house" },
-  { term: "Baum", translation: "tree" },
-  { term: "Auto", translation: "car" },
-  { term: "Buch", translation: "book" },
-  { term: "Tisch", translation: "table" },
-  { term: "Stuhl", translation: "chair" },
-  { term: "Himmel", translation: "sky" },
-  { term: "Sonne", translation: "sun" },
-  { term: "Mond", translation: "moon" },
-  { term: "Wasser", translation: "water" },
-  { term: "Feuer", translation: "fire" },
-  { term: "Stadt", translation: "city" },
-  { term: "Blume", translation: "flower" },
-  { term: "Hund", translation: "dog" },
-  { term: "Katze", translation: "cat" },
-  { term: "Vogel", translation: "bird" },
-  { term: "Freund", translation: "friend" },
-  { term: "Schule", translation: "school" },
-  { term: "Fenster", translation: "window" },
-  { term: "Tür", translation: "door" }
-];
+import {useVoci} from "./context/vociContext";
 
 export default function Index() {
 
   const router = useRouter();
+
+  const { vociList } = useVoci();
 
   return (
     <View style={styles.container}>
