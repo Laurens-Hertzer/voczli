@@ -24,6 +24,10 @@ const styles = StyleSheet.create({
     // 4. Abstand zu anderen Items (Aussenabstand nach unten)
     marginBottom: 12,
 
+    //Einheitliche Höhe für alle Items
+    minHeight: 80,
+    justifyContent: "center",
+
     // 5. Schatten (iOS)
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
