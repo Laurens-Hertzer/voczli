@@ -1,18 +1,28 @@
-import { useState } from 'react';
-import { Alert, Button, SafeAreaView, StyleSheet, TextInput } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Alert, Button, SafeAreaView, StyleSheet, TextInput, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Voci from '../models/voci';
 
 interface VociDetailProps {
+    initialVoci?: Voci;
     onSave: (voci: Voci) => void;
+    onCancel?: () => void;
+    onDelete?: () => void;
 }
 
-export default function VociDetail({ onSave }: VociDetailProps) {
+export default function VociDetail({ initialVoci, onSave, onCancel, onDelete }: VociDetailProps) {
     const [term, setTerm] = useState('');
     const [translation, setTranslation] = useState('');
 
+    useEffect(() => {
+        if (initialVoci) {
+            setTerm(initialVoci.term);
+            setTranslation(initialVoci.translation);
+        }
+    }, [initialVoci]);
+
     function handleSubmit() {
-        if (term === '' || translation === '') {
+        if (term.trim() === '' || translation.trim() === '') {
             Alert.alert('Bitte füllen Sie beide Felder aus.');
             return;
         }
@@ -22,9 +32,31 @@ export default function VociDetail({ onSave }: VociDetailProps) {
         setTranslation('');
     }
 
+    function handleDelete() {
+        Alert.alert(
+            'Löschen bestätigen',
+            'Möchten Sie diese Vokabel wirklich löschen?',
+            [
+                {
+                    text: 'Abbrechen',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Löschen',
+                    style: 'destructive',
+                    onPress: () => {
+                        if (onDelete) {
+                            onDelete();
+                        }
+                    },
+                },
+            ]
+        );
+    }
+
     return (
         <SafeAreaProvider>
-            <SafeAreaView>
+            <SafeAreaView style={styles.container}>
                 <TextInput
                     style={styles.input}
                     onChangeText={setTerm}
@@ -37,20 +69,31 @@ export default function VociDetail({ onSave }: VociDetailProps) {
                     value={translation}
                     placeholder="Übersetzung eingeben"
                 />
-                <Button
-                    title="Speichern"
-                    onPress={handleSubmit}
-                />
+                <View style={styles.buttonContainer}>
+                    <Button title="Speichern" onPress={handleSubmit} />
+                    {onCancel && <Button title="Abbrechen" color="#888" onPress={onCancel} />}
+                    {onDelete && <Button title="Löschen" color="red" onPress={onDelete} />}
+                </View>
             </SafeAreaView>
         </SafeAreaProvider>
     );
 }
 
 const styles = StyleSheet.create({
+    container: {
+        padding: 16,
+    },
     input: {
         height: 40,
-        margin: 12,
+        marginVertical: 8,
         borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 6,
         padding: 10,
     },
+    buttonContainer: {
+        marginTop: 16,
+        gap: 10,
+    },
 });
+

@@ -1,12 +1,19 @@
-import {FlatList, Text, View, StyleSheet } from "react-native";
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import Voci from "../models/voci";
+import { useRouter } from "expo-router";
 
 export default function VociItem({ voci }: { voci: Voci }) {
+  const router = useRouter();
+
+  function handlePress() {
+    router.push(`/editVoci?term=${encodeURIComponent(voci.term)}`);
+  }
+
   return (
-    <View style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer} onPress={handlePress}>
       <Text style={styles.term}>{voci.term}</Text>
       <Text style={styles.translation}>{voci.translation}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
