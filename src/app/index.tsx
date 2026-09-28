@@ -15,7 +15,6 @@ export default function Index() {
   return (
     <View style={styles.container}>
     <View style={styles.containerheader}>
-      <Link href="/learn">Learn</Link>
       <Text style={styles.title}>VocZLI</Text>
       <Text style={styles.subtitle}>Meine Vokabel-Lern-App</Text>
     </View>
