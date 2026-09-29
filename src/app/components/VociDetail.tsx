@@ -72,7 +72,7 @@ export default function VociDetail({ initialVoci, onSave, onCancel, onDelete }: 
                 <View style={styles.buttonContainer}>
                     <Button title="Speichern" onPress={handleSubmit} />
                     {onCancel && <Button title="Abbrechen" color="#888" onPress={onCancel} />}
-                    {onDelete && <Button title="Löschen" color="red" onPress={onDelete} />}
+                    {onDelete && <Button title="Löschen" color="red" onPress={handleDelete} />}
                 </View>
             </SafeAreaView>
         </SafeAreaProvider>
