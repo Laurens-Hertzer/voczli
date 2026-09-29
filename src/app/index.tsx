@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Voci from "./models/voci";
 import VociItem from "./components/VociItem";
-import {useVoci} from "./context/vociContext";
+import { useVoci } from "./context/vociContext";
 
 export default function Index() {
 
@@ -14,26 +14,36 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-    <View style={styles.containerheader}>
-      <Text style={styles.title}>VocZLI</Text>
-      <Text style={styles.subtitle}>Meine Vokabel-Lern-App</Text>
-    </View>
+      <View style={styles.containerheader}>
+        <Text style={styles.title}>VocZLI</Text>
+        <Text style={styles.subtitle}>Meine Vokabel-Lern-App</Text>
+      </View>
 
-    <FlatList
+      <FlatList
         data={vociList}
         keyExtractor={(item) => item.term}
         renderItem={({ item }) => <VociItem voci={item} />}
         style={styles.list}
-    />
+      />
 
-    <Pressable
-          style={({ pressed }) => [
-          styles.fab,
+      <Pressable
+        style={({ pressed }) => [
+          styles.fablearn,
           pressed && styles.fabPressed,
         ]}
         onPress={() => router.push('/learn')}
       >
         <AntDesign name="arrow-right" size={24} color="#fff" />
+      </Pressable>
+
+      <Pressable
+        style={({ pressed }) => [
+          styles.fabsensor,
+          pressed && styles.fabPressed,
+        ]}
+        onPress={() => router.push('/sensorDebug')}
+      >
+        <Ionicons name="bug-outline" size={24} color="#fff" />
       </Pressable>
     </View>
   );
@@ -46,7 +56,7 @@ const styles = StyleSheet.create({
   containerheader: {
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 50, 
+    paddingTop: 50,
   },
   title: {
     fontSize: 32,
@@ -62,7 +72,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 16,
   },
-  fab: {
+  fablearn: {
     width: 60,
     height: 60,
     borderRadius: 30,
@@ -73,7 +83,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
 
-        // 5. Schatten (iOS)
+    // 5. Schatten (iOS)
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+
+    // 5. Schatten (Android)
+    elevation: 9,
+  },
+    fabsensor: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#005380",
+    position: "absolute",
+    bottom: 20,
+    left: 20,
+    justifyContent: "center",
+    alignItems: "center",
+
+    // 5. Schatten (iOS)
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
