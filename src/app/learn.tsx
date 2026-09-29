@@ -1,9 +1,9 @@
-import { Pressable, FlatList, Text, View, StyleSheet } from "react-native";
+import { Pressable, FlatList, Text, View, StyleSheet, Image } from "react-native";
 import { useRouter } from "expo-router";
 import Voci from "./models/voci";
 import VociItem from "./components/VociItem";
 import { useState } from "react";
-import {useVoci} from "./context/vociContext";
+import { useVoci } from "./context/vociContext";
 
 
 export default function LearnScreen() {
@@ -14,10 +14,17 @@ export default function LearnScreen() {
 
     const [showTranslation, setShowTranslation] = useState(false);
 
-     const { vociList } = useVoci();
+    const { vociList } = useVoci();
 
-    const currentVoci = vociList[currentIndex]
+    if (!vociList || vociList.length === 0) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.status}>Keine Vokabeln vorhanden.</Text>
+            </View>
+        );
+    }
 
+    const currentVoci = vociList[currentIndex];
     const letzterIndex = vociList.length;
 
     function onPressLearnMore() {
@@ -35,16 +42,19 @@ export default function LearnScreen() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.status}>{currentIndex + 1} / {letzterIndex}</Text>
+            <Text style={styles.status}>
+                {currentIndex + 1} / {letzterIndex}
+            </Text>
 
             <View style={styles.item}>
+                <Image style={styles.picture} source={{ uri: currentVoci.imageUri }} />
                 <Text style={styles.term}>{currentVoci.term}</Text>
                 {showTranslation && (
-                    <Text style={styles.translation}>{currentVoci.translation}</Text>
+                    <Text style={styles.translation}>{currentVoci?.translation}</Text>
                 )}
             </View>
 
-            
+
             {!showTranslation && (
                 <Pressable style={styles.button} onPress={onPressShowTranslation}>
                     <Text style={styles.buttonText}>Übersetzung zeigen</Text>
@@ -104,6 +114,11 @@ const styles = StyleSheet.create({
         marginTop: 8,
         fontSize: 14,
         color: "#666",
+    },
+    picture: {
+        height: 200,
+        width: 200,
+        resizeMode: "cover",
     },
     status: {
         fontSize: 16,

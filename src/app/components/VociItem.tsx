@@ -1,4 +1,4 @@
-import { Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, Image, View } from "react-native";
 import Voci from "../models/voci";
 import { useRouter } from "expo-router";
 
@@ -11,45 +11,61 @@ export default function VociItem({ voci }: { voci: Voci }) {
 
   return (
     <TouchableOpacity style={styles.itemContainer} onPress={handlePress}>
-      <Text style={styles.term}>{voci.term}</Text>
-      <Text style={styles.translation}>{voci.translation}</Text>
+      {/* Links: Bild oder Platzhalter */}
+      {voci.imageUri ? (
+        <Image style={styles.picture} source={{ uri: voci.imageUri }} />
+      ) : (
+        <View style={[styles.picture, styles.placeholder]}>
+          <Text style={styles.placeholderText}>Kein Bild</Text>
+        </View>
+      )}
+
+      {/* Rechts: Term und Translation untereinander */}
+      <View style={styles.textContainer}>
+        <Text style={styles.term}>{voci.term}</Text>
+        <Text style={styles.translation}>{voci.translation}</Text>
+      </View>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   itemContainer: {
-    // 1. Weisser Hintergrund
     backgroundColor: "#ffffff",
-
-    // 2. Padding (Innenabstand)
-    padding: 16,
-
-    // 3. Abgerundete Ecken
+    padding: 12,
     borderRadius: 12,
-
-    // 4. Abstand zu anderen Items (Aussenabstand nach unten)
     marginBottom: 12,
-
-    //Einheitliche Höhe für alle Items
-    minHeight: 80,
-    justifyContent: "center",
-
-    // 5. Schatten (iOS)
+    flexDirection: 'row',
+    alignItems: 'center',
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-
-    // 5. Schatten (Android)
     elevation: 3,
-
     width: "100%",
+  },
+  picture: {
+    height: 60,
+    width: 60,
+    borderRadius: 8,
+  },
+  placeholder: {
+    backgroundColor: '#eee',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  placeholderText: {
+    fontSize: 10,
+    color: '#888',
+  },
+  textContainer: {
+    marginLeft: 12,
+    justifyContent: 'center',
   },
   term: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 4,
+    marginBottom: 2,
   },
   translation: {
     fontSize: 14,

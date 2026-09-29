@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   containerheader: {
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 50,
+    paddingTop: 50, 
   },
   title: {
     fontSize: 32,
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   list: {
-    width: "25%",
-    alignSelf: "center",
+    width: "100%",
+    paddingHorizontal: 16,
   },
   fab: {
     width: 60,

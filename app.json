@@ -32,6 +32,20 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Die App benötigt Zugriff auf deine Fotos, um Bilder auszuwählen.",
+          "cameraPermission": "Die App benötigt Zugriff auf deine Kamera, um neue Fotos zu machen."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Die App benötigt Zugriff auf deine Fotos, um Vokabelbilder auszuwählen.",
+          "cameraPermission": "Die App benötigt Zugriff auf die Kamera, um Vokabelbilder aufzunehmen."
+        }
       ]
     ],
     "experiments": {
